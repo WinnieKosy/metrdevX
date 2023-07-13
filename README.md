@@ -15,8 +15,6 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-git clone ()
+git clone (https://github.com/WinnieKosy/metrdevX.git)
 
-[Download apk](
-https://drive.google.com/file/d/18xpEiLaj9egQOEtbFc3k-MWaoFQpTa--/view?usp=sharing
-)
+[Download apk](https://drive.google.com/file/d/18xpEiLaj9egQOEtbFc3k-MWaoFQpTa--/view?usp=sharing)
