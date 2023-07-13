@@ -5,18 +5,32 @@ enum LoginState { success, failure }
 class AuthState {
   final String? email;
   final String? password;
-  final bool status;
+  final bool isLoading;
   final LoginState? loginState;
+  final String? errorMessage;
 
-  AuthState({this.password, this.email, this.status = false, this.loginState});
+  AuthState({
+    this.password,
+    this.email,
+    this.isLoading = false,
+    this.loginState,
+    this.errorMessage,
+  });
 
-  AuthState copyWith(
-      {String? email, String? password, bool? status, LoginState? loginState}) {
+  AuthState copyWith({
+    String? email,
+    String? password,
+    bool? status,
+    LoginState? loginState,
+    String? errorMessage,
+  }) {
     return AuthState(
-        email: email ?? this.email,
-        password: password ?? this.password,
-        status: status ?? this.status,
-        loginState: loginState ?? this.loginState);
+      errorMessage: errorMessage ?? this.errorMessage,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      isLoading: status ?? this.isLoading,
+      loginState: loginState ?? this.loginState,
+    );
   }
 
   bool get showButton {

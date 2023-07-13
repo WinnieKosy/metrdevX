@@ -6,18 +6,28 @@ import 'package:metrdev/service/app_exception.dart';
 class AuthRepository {
   final url = 'http://vbatest.metrdev.com:2472/api/v1/signin';
 
-  Future<dynamic> getLogin(
-      {required String email, required String password}) async {
+  Future<dynamic> getLogin({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final response = await http
-          .post(Uri.parse(url), body: {"email": email, "password": password});
+      var map = jsonEncode({"email": email, "password": password});
+      final response = await http.post(Uri.parse(url), body: map, headers: {
+        "Content-type": "application/json",
+      });
+      final data = response.body;
+      final decodedBody = json.decode(data);
+      print(decodedBody);
       if (response.statusCode == 200) {
-        final data = response.body;
-        final decodedBody = json.decode(data);
         return decodedBody;
+      } else {
+        throw Failure(message: decodedBody['message']);
       }
+    } on Failure catch(e){
+      print(e.message);
+      rethrow;
     } catch (e) {
-      throw Failure(message: 'Something went wrong');
+      rethrow;
     }
   }
 }

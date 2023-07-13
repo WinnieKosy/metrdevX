@@ -9,19 +9,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authRepository) : super(AuthState()) {
     on<AuthEventLogin>((event, emit) async {
       try {
+        if(state.isLoading){
+          return;
+        }
         emit(state.copyWith(status: true));
         final authData = await _authRepository.getLogin(
-            email: state.email ?? '', password: state.password ?? '');
-        print('ggg');
+          email: state.email ?? '',
+          password: state.password ?? '',
+        );
+        emit(state.copyWith(status: false));
         if (authData != null) {
           emit(state.copyWith(loginState: LoginState.success));
-          print('yyy');
         } else {
           emit(state.copyWith(loginState: LoginState.failure));
-          print('fff');
         }
       } catch (e) {
-        emit(state.copyWith(loginState: LoginState.failure));
+        emit(state.copyWith(status: false));
+        emit(state.copyWith(
+            loginState: LoginState.failure, errorMessage: e.toString()));
       }
     });
 
